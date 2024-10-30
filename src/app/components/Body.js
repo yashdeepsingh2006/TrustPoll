@@ -200,7 +200,8 @@ export default function Body() {
                 </div>
 
                 {/* Search */}
-                <form className="form self-center mt-28  rounded-full border border-b-0" onSubmit={(e) => e.preventDefault()}>
+                
+                <form className="flex flex-row form self-center mt-28  rounded-full border border-b-0" onSubmit={(e) => e.preventDefault()}>
                     <input
                         ref={inputRef}
                         onKeyDown={handleKeyDown} // Add onKeyDown event to listen for Enter
@@ -209,6 +210,7 @@ export default function Body() {
                         type="text"
                     />
                 </form>
+                    <h1 onClick={handleSearch} className="self-center mt-4 text-xl font-bold text-gray-800 hover:cursor-pointer">Go</h1>
 
                 {/* OR Divider */}
                 <div className="flex items-center my-10 px-7">

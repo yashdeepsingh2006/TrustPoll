@@ -1,36 +1,98 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+# TrustPoll
 
-First, run the development server:
+**TrustPoll** is a decentralized polling platform built on the Ethereum blockchain, designed to enable secure, transparent, and tamper-proof voting. This platform allows users to create, vote on, and explore various polls, ensuring each vote is auditable and recorded on the blockchain.
+
+
+
+## Features
+
+- **Decentralized Polling**: All votes are securely stored on the Ethereum blockchain, ensuring tamper-proof results.
+- **Custom Polls**: Users can create their own polls with custom options, allowing for flexibility in voting topics.
+- **Real-Time Voting Results**: Poll results are updated in real-time and can be viewed by anyone.
+- **Ethereum Wallet Integration**: Users can connect their Ethereum wallets (e.g., MetaMask) to participate in or create polls.
+- **Responsive UI**: Intuitive and easy-to-use interface developed with Next.js, offering a smooth user experience across devices.
+
+## Tech Stack
+
+- **Smart Contracts**: Solidity
+- **Front-End**: Next.js
+- **Blockchain Interaction**: Ethers.js
+- **Wallet Integration**: MetaMask
+
+
+## Prerequisites
+
+- Node.js (v14+)
+- MetaMask (or any Ethereum-compatible wallet)
+## Installation
+
+Install my-project with npm
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+    git clone https://github.com/{YOUR-USERNAME}/TrustPoll.git
+    cd TrustPoll
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Install dependencies
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+```bash
+    npm install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Add enviornment variables
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+- Set the **NEXT_PUBLIC_CONTRACT_ADDRESS** to the deployed contract address on the desired Ethereum network.  
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Include any additional configuration in **.env.local**.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+Run the development server
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+    npm run dev
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Open http://localhost:3000 to view the project in the browser.
+## Deploying Smart Contract
+
+- Compile and deploy the smart contract **(Voting.sol)** on your desired Ethereum test network (e.g., Sepolia).
+
+- Note the contract address and replace the **NEXT_PUBLIC_CONTRACT_ADDRESS** in the **.env.local** file.
+
+
+## Usage
+
+- Connect Wallet: Use the "Connect Wallet" button to link your Ethereum wallet.
+- Create a Poll: Enter your question and options, then submit to create a new poll.
+- Vote: Browse available polls and cast your vote. Your vote will be securely recorded on the blockchain.
+- View Results: Poll results are displayed in real-time, showing the number of votes per option.
+
+**Note-** The I'd thatll be given after adding the question will be used to acess the poll
+**Don't lose it**
+## License
+
+Refer to **LICENSE.md**
+
+
+## Authors
+
+- [@Yashdeep-singh2006](https://github.com/Yashdeep-singh2006)
+
+
+## Acknowledgements
+
+ Special thanks to the open-source community and Ethereum developers for providing resources and inspiration.
+
+
+## Contributing
+
+Feel free to contribute to TrustPoll and help enhance secure voting in the Web3 ecosystem!
+
+
+
+
+## Bugs
+
+for reporting any kind of bug please contact yashdeepsingh110200@gmail.com.
