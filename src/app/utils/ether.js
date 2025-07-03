@@ -25,6 +25,11 @@ const connectWallet = async () => {
 
 // Get contract instance
 const getContract = async () => {
+  // Add validation for contract address
+  if (!contractAddress) {
+    throw new Error("Contract address is not configured. Please set NEXT_PUBLIC_CONTRACT_ADDRESS in your environment variables.");
+  }
+  
   const signer = await connectWallet();
   if (!signer) {
     throw new Error("No signer available. Please connect to your wallet.");

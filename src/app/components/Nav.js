@@ -36,56 +36,170 @@ export default function Nav() {
         setIsMenuOpen(!isMenuOpen);
     };
 
+    // Close menu when clicking outside
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (isMenuOpen && !event.target.closest('.nav-menu') && !event.target.closest('.menu-toggle')) {
+                setIsMenuOpen(false);
+            }
+        };
+        
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, [isMenuOpen]);
+
     // Show Loading component if loading, otherwise show Nav
     if (loading) {
         return <Loader />;
     } else {
         return (
             <>
-                <div className='flex flex-row justify-between px-3 md:px-9 py-3 shadow-md'>
-                    <div>
-                        <Image height={100} width={100} className='w-auto h-9' src='/images/Logo.png' alt='Logo' />
+                {/* Backdrop Overlay */}
+                {isMenuOpen && (
+                    <div 
+                        className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 transition-opacity duration-300"
+                        onClick={() => setIsMenuOpen(false)}
+                    />
+                )}
+
+                {/* Fixed Navigation Bar */}
+                <nav className="fixed top-0 left-0 right-0 z-50 bg-white/10 backdrop-blur-lg border-b border-white/20 shadow-lg">
+                    <div className="flex justify-between items-center px-6 md:px-12 py-4">
+                        {/* Logo Section */}
+                        <div className="flex items-center space-x-3">
+                            <h1 className="text-2xl libertinus-mono-regular font-bold text-white bg-gradient-to-r from-purple-300 to-blue-300 bg-clip-text text-transparent">
+                                TrustPoll
+                            </h1>
+                        </div>
+
+                        {/* Menu Toggle Button */}
+                        <button
+                            onClick={toggleMenu}
+                            className="menu-toggle w-12 h-12 bg-white/10 hover:bg-white/20 border border-white/30 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95 group"
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth="2"
+                                stroke="currentColor"
+                                className={`w-6 h-6 text-white transition-transform duration-300 ${isMenuOpen ? 'rotate-180' : ''}`}
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+                                />
+                            </svg>
+                        </button>
                     </div>
-                    <div className='mt-1 mr-7'>
-                        <svg onClick={toggleMenu} className='self-center hover:cursor-pointer' xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="rgb(46 16 101)" viewBox="0 0 16 16">
-                            <path fillRule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708" />
-                        </svg>
-                    </div>
-                </div>
+                </nav>
 
-                {/* Menu */}
-                <div className={`${isMenuOpen ? 'absolute' : 'hidden'} right-4`}>
-                    <div className="w-52 mt-2 left-0 rounded-xl overflow-hidden flex flex-col items-center shadow-lg bg-white font-Roboto-light">
-                        <div className="h-24 w-full bg-purple-400"></div>
-                        <div className="top-16 z-50 flex items-center flex-col gap-4 px-5 py-5">
-                            <div className="-mt-20">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="currentColor" className="bi bi-person-circle" viewBox="0 0 16 16">
-                                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
-                                    <path fillRule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
-                                </svg>
+                {/* Dropdown Menu */}
+                <div className={`nav-menu fixed top-20 right-6 z-50 transition-all duration-300 ${
+                    isMenuOpen 
+                        ? 'opacity-100 translate-y-0 scale-100' 
+                        : 'opacity-0 translate-y-4 scale-95 pointer-events-none'
+                }`}>
+                    <div className="w-80 bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl border border-white/20 overflow-hidden">
+                        {/* Header Section */}
+                        <div className="relative h-24 bg-gradient-to-r from-purple-500 to-blue-500 overflow-hidden">
+                            {/* Animated Background Elements */}
+                            <div className="absolute -top-4 -right-4 w-16 h-16 bg-white/20 rounded-full animate-pulse"></div>
+                            <div className="absolute -bottom-4 -left-4 w-20 h-20 bg-white/10 rounded-full animate-pulse animation-delay-2000"></div>
+                            
+                            {/* Header Content */}
+                            <div className="relative z-10 flex items-center justify-center h-full">
+                                <div className="text-center">
+                                    <h3 className="text-white font-bold text-lg">Wallet Connection</h3>
+                                    <p className="text-white/80 text-sm">Manage your account</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Profile Section */}
+                        <div className="p-6 space-y-6">
+                           
+
+                            {/* Connection Status */}
+                            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
+                                <div className="flex items-center justify-between mb-3">
+                                    <span className="text-white/90 font-medium">Connection Status</span>
+                                    <div className="flex items-center space-x-2">
+                                        <div className={`w-2 h-2 rounded-full ${
+                                            connectedAccount !== "none" ? 'bg-green-400 animate-pulse' : 'bg-red-400'
+                                        }`}></div>
+                                        <span className="text-white/70 text-sm">
+                                            {connectedAccount !== "none" ? 'Connected' : 'Disconnected'}
+                                        </span>
+                                    </div>
+                                </div>
+                                
+                                <div className="text-center">
+                                    <p className="text-white/60 text-sm mb-1">Account Address</p>
+                                    <p className="text-white font-mono text-lg bg-white/10 rounded-lg px-3 py-2 border border-white/20">
+                                        {connectedAccount}
+                                    </p>
+                                </div>
                             </div>
 
-                            <div className="flex items-center flex-col">
-                                <p className="text-black font-Roboto-md">Connected account</p>
-                                <p className="text-xs text-gray-500 font-medium">
-                                    {formatAccount(connectedAccount)} {/* Display formatted account */}
-                                </p>
+                            {/* Features List */}
+                            <div className="space-y-3">
+                                <div className="flex items-center space-x-3 text-white/80">
+                                    <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse"></div>
+                                    <span className="text-sm">Blockchain Powered</span>
+                                </div>
+                                <div className="flex items-center space-x-3 text-white/80">
+                                    <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
+                                    <span className="text-sm">Decentralized Voting</span>
+                                </div>
+                                <div className="flex items-center space-x-3 text-white/80">
+                                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                                    <span className="text-sm">Transparent Results</span>
+                                </div>
                             </div>
 
-                            <div className="flex items-center gap-3">
-                                <button
-                                    onClick={handleConnectAccount}
-                                    className="bg-purple-700 transition-all gradient text-[15px] text-white px-3 py-[6px] rounded-full flex items-center gap-1"
-                                >
-                                    Connect
-                                </button>
-                            </div>
+                            {/* Connect Button */}
+                            <button
+                                onClick={handleConnectAccount}
+                                disabled={loading}
+                                className={`w-full py-3 px-4 rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95 ${
+                                    connectedAccount !== "none"
+                                        ? 'bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white'
+                                        : 'bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white'
+                                } ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                            >
+                                {loading ? (
+                                    <div className="flex items-center justify-center space-x-2">
+                                        <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                                        <span>Connecting...</span>
+                                    </div>
+                                ) : (
+                                    <div className="flex items-center justify-center space-x-2">
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            strokeWidth="2"
+                                            stroke="currentColor"
+                                            className="w-5 h-5"
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244"
+                                            />
+                                        </svg>
+                                        <span>
+                                            {connectedAccount !== "none" ? 'Reconnect Wallet' : 'Connect Wallet'}
+                                        </span>
+                                    </div>
+                                )}
+                            </button>
                         </div>
                     </div>
                 </div>
             </>
         );
     }
-
-
 }

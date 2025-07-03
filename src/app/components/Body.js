@@ -93,22 +93,29 @@ export default function Body() {
         return (<Loader />);
     } else {
         return (
-            <div className="flex flex-col">
+            <div className="flex flex-col min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-blue-900 relative overflow-hidden pb-20">
+
+                {/* Animated Background Elements */}
+                <div className="absolute inset-0 overflow-hidden">
+                    <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse"></div>
+                    <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse animation-delay-2000"></div>
+                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-60 h-60 bg-indigo-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse animation-delay-4000"></div>
+                </div>
 
                 {/* Notifications  */}
-                <div className="absolute self-center">
-                    {/* Sucess */}
-                    <div className={`${sucessNotification === true ? 'flex' : 'hidden'} flex-col gap-2 w-60 sm:w-72 text-[10px] sm:text-xs z-50`}>
+                <div className="absolute self-center z-50 top-4">
+                    {/* Success */}
+                    <div className={`${sucessNotification === true ? 'flex animate-slideInDown' : 'hidden'} flex-col gap-2 w-60 sm:w-72 text-[10px] sm:text-xs`}>
                         <div
-                            className="succsess-alert cursor-default flex items-center justify-between w-full h-12 sm:h-14 rounded-lg bg-green-100 px-[10px]"
+                            className="success-alert cursor-default flex items-center justify-between w-full h-12 sm:h-14 rounded-xl bg-gradient-to-r from-green-400 to-emerald-500 px-[10px] shadow-lg backdrop-blur-md border border-green-300/20"
                         >
                             <div className="flex gap-2">
-                                <div className="text-[#2b9875] bg-white/5 backdrop-blur-xl p-1 rounded-lg">
+                                <div className="text-white bg-white/20 backdrop-blur-xl p-2 rounded-lg">
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         fill="none"
                                         viewBox="0 0 24 24"
-                                        strokeWidth="1.5"
+                                        strokeWidth="2"
                                         stroke="currentColor"
                                         className="w-6 h-6"
                                     >
@@ -120,21 +127,21 @@ export default function Body() {
                                     </svg>
                                 </div>
                                 <div>
-                                    <p className="text-black font-bold">Sucess :)</p>
-                                    <p className="text-black">Question added sucessfully</p>
+                                    <p className="text-white font-bold">Success</p>
+                                    <p className="text-white/90">Question added successfully</p>
                                 </div>
                             </div>
                             <button
                                 onClick={toggleSucessNotification}
-                                className=" text-gray-600 hover:bg-white/5 p-1 rounded-md transition-colors ease-linear"
+                                className="text-white/80 hover:bg-white/10 p-2 rounded-lg transition-all duration-200 hover:scale-105"
                             >
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
                                     viewBox="0 0 24 24"
-                                    strokeWidth="1.5"
+                                    strokeWidth="2"
                                     stroke="currentColor"
-                                    className="w-6 h-6"
+                                    className="w-5 h-5"
                                 >
                                     <path
                                         strokeLinecap="round"
@@ -147,17 +154,17 @@ export default function Body() {
                     </div>
 
                     {/* Error */}
-                    <div className={`${errorNotification === true ? 'flex' : 'hidden'} flex-col gap-2 w-60 sm:w-72 text-[10px] sm:text-xs z-50`}>
+                    <div className={`${errorNotification === true ? 'flex animate-slideInDown' : 'hidden'} flex-col gap-2 w-60 sm:w-72 text-[10px] sm:text-xs`}>
                         <div
-                            className="error-alert cursor-default flex items-center justify-between w-full h-12 sm:h-14 rounded-lg bg-[#232531] px-[10px]"
+                            className="error-alert cursor-default flex items-center justify-between w-full h-12 sm:h-14 rounded-xl bg-gradient-to-r from-red-500 to-pink-500 px-[10px] shadow-lg backdrop-blur-md border border-red-300/20"
                         >
                             <div className="flex gap-2">
-                                <div className="text-[#d65563] bg-white/5 backdrop-blur-xl p-1 rounded-lg">
+                                <div className="text-white bg-white/20 backdrop-blur-xl p-2 rounded-lg">
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         fill="none"
                                         viewBox="0 0 24 24"
-                                        strokeWidth="1.5"
+                                        strokeWidth="2"
                                         stroke="currentColor"
                                         className="w-6 h-6"
                                     >
@@ -169,21 +176,21 @@ export default function Body() {
                                     </svg>
                                 </div>
                                 <div>
-                                    <p className="text-white">Error</p>
-                                    <p className="text-gray-500">Please fill all the feilds</p>
+                                    <p className="text-white font-bold">Error ❌</p>
+                                    <p className="text-white/90">Please fill all the fields</p>
                                 </div>
                             </div>
                             <button
                                 onClick={toggleErrorNotification}
-                                className="text-gray-600 hover:bg-white/10 p-1 rounded-md transition-colors ease-linear"
+                                className="text-white/80 hover:bg-white/10 p-2 rounded-lg transition-all duration-200 hover:scale-105"
                             >
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
                                     viewBox="0 0 24 24"
-                                    strokeWidth="1.5"
+                                    strokeWidth="2"
                                     stroke="currentColor"
-                                    className="w-6 h-6"
+                                    className="w-5 h-5"
                                 >
                                     <path
                                         strokeLinecap="round"
@@ -200,63 +207,115 @@ export default function Body() {
                 </div>
 
                 {/* Search */}
-                
-                <form className="flex flex-row form self-center mt-28  rounded-full border border-b-0" onSubmit={(e) => e.preventDefault()}>
-                    <input
-                        ref={inputRef}
-                        onKeyDown={handleKeyDown} // Add onKeyDown event to listen for Enter
-                        className="input rounded-full px-8 py-3 border-2 border-transparent focus:outline-none focus:border-blue-500 placeholder-gray-500 text-gray-500 transition-all duration-300 shadow-md"
-                        placeholder="Search..."
-                        type="text"
-                    />
-                </form>
-                    <h1 onClick={handleSearch} className="self-center mt-4 text-xl font-bold text-gray-800 hover:cursor-pointer">Go</h1>
+                <div className="relative z-10 flex flex-col items-center mt-32">
+                    <div className="mb-8 text-center">
+                        <h1 className="text-5xl font-bold text-white mb-4 bg-gradient-to-r from-purple-300 to-blue-300 bg-clip-text text-transparent">
+                            TrustPoll
+                        </h1>
+                        <p className="text-white/70 text-lg">Create and discover polls with blockchain transparency</p>
+                    </div>
+                    
+                    <form className="flex flex-row form self-center rounded-full shadow-2xl backdrop-blur-md bg-white/10 border border-white/20 hover:bg-white/20 transition-all duration-300 group" onSubmit={(e) => e.preventDefault()}>
+                        <input
+                            ref={inputRef}
+                            onKeyDown={handleKeyDown}
+                            className="input rounded-full px-8 py-4 bg-transparent focus:outline-none placeholder-white/60 text-white transition-all duration-300 w-60 lg:w-80 "
+                            placeholder="Search for a poll by ID..."
+                            type="text"
+                        />
+                        <button
+                            type="button"
+                            onClick={handleSearch}
+                            className="px-6 py-2 bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white rounded-full font-semibold transition-all duration-300 shadow-lg hover:shadow-xl"
+                        >
+                            Search
+                        </button>
+                    </form>
+                </div>
 
                 {/* OR Divider */}
-                <div className="flex items-center my-10 px-7">
-                    <div className="flex-grow border-t-2 border-gray-400"></div>
-                    <span className="mx-2 text-xl font-bold text-purple-950">OR</span>
-                    <div className="flex-grow border-t-2 border-gray-400"></div>
+                <div className="flex items-center my-16 px-7 relative z-10">
+                    <div className="flex-grow border-t border-white/30"></div>
+                    <span className="mx-6 text-2xl font-bold text-white bg-gradient-to-r from-purple-300 to-blue-300 bg-clip-text text-transparent">
+                        OR
+                    </span>
+                    <div className="flex-grow border-t border-white/30"></div>
                 </div>
 
-                {/* New Question */}
-                <h1 className="self-center text-2xl font-black text-purple-800 font-sans">New question</h1>
+                {/* New Question Section */}
+                <div className="relative z-10 flex flex-col items-center">
+                    <div className="bg-white/10 backdrop-blur-lg rounded-3xl shadow-2xl p-8 w-11/12 max-w-2xl border border-white/20">
+                        <h1 className="text-center text-3xl font-bold text-white mb-8 bg-gradient-to-r from-purple-300 to-blue-300 bg-clip-text text-transparent">
+                            Create New Poll
+                        </h1>
 
-                <div className="mt-7 flex flex-col self-center justify-start w-9/12 md:w-3/5 lg:w-1/2">
-                    <h2 className="text-purple-800 font-sans font-light">Question statement</h2>
-                    <input
-                        ref={textRef}
-                        className="rounded-2xl h-8 mt-2 border border-gray-300 px-3 text-gray-500"
-                        type="text"
-                        required
-                    />
-                </div>
+                        <div className="flex flex-col space-y-6">
+                            <div>
+                                <label className="block text-white/90 font-medium mb-3 text-lg">Question Statement</label>
+                                <input
+                                    ref={textRef}
+                                    className="w-full rounded-2xl h-12 px-4 bg-white/10 border border-white/30 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all duration-300 backdrop-blur-sm"
+                                    placeholder="What would you like to ask?"
+                                    type="text"
+                                    required
+                                />
+                            </div>
 
-                {/* Options */}
-                <div className="self-center w-9/12 md:w-3/5 lg:w-1/2">
-                    {options.map((option, index) => (
-                        <div key={index} className="mt-4">
-                            <h2 className="text-purple-800 font-sans font-light">Option {index + 1}</h2>
-                            <input
-                                className="rounded-2xl w-full h-8 mt-2 border border-gray-300 px-3 text-gray-500"
-                                type="text"
-                                placeholder={`Option ${index + 1}`}
-                                value={option}
-                                onChange={(e) => handleOptionChange(index, e.target.value)}
-                                required
-                            />
+                            {/* Options */}
+                            <div className="space-y-4">
+                                <label className="block text-white/90 font-medium text-lg">Poll Options</label>
+                                {options.map((option, index) => (
+                                    <div key={index} className="relative group">
+                                        <div className="flex items-center space-x-3">
+                                            <div className="w-8 h-8 rounded-full bg-gradient-to-r from-purple-400 to-blue-400 flex items-center justify-center text-white font-bold text-sm">
+                                                {index + 1}
+                                            </div>
+                                            <input
+                                                className="flex-1 rounded-2xl h-12 px-4 bg-white/10 border border-white/30 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all duration-300 backdrop-blur-sm"
+                                                type="text"
+                                                placeholder={`Option ${index + 1}`}
+                                                value={option}
+                                                onChange={(e) => handleOptionChange(index, e.target.value)}
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+
+                            {/* Add Option Button */}
+                            <button
+                                onClick={addOption}
+                                className="self-center flex items-center space-x-2 px-6 py-3 bg-white/10 hover:bg-white/20 border border-white/30 rounded-2xl text-white font-medium transition-all duration-300 hover:scale-105 active:scale-95 backdrop-blur-sm"
+                            >
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    strokeWidth="2"
+                                    stroke="currentColor"
+                                    className="w-5 h-5"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        d="M12 4.5v15m7.5-7.5h-15"
+                                    />
+                                </svg>
+                                <span>Add Option</span>
+                            </button>
+
+                            {/* Submit Button */}
+                            <div className="pt-4">
+                                <button
+                                    onClick={handleNewQuestion}
+                                    className="w-full py-4 bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white font-bold rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95 transition-all duration-300 text-lg"
+                                >
+                                    Create Poll
+                                </button>
+                            </div>
                         </div>
-                    ))}
-                </div>
-
-                {/* Add Option Button */}
-                <Image className="self-center mt-7" onClick={addOption} height={40} width={40} src='/images/addOption.svg' alt="ADD more" />
-
-                <div
-                    onClick={handleNewQuestion}
-                    className="self-center my-10 max-w-32 bg-transparent items-center justify-center flex border-2 border-purple-800 shadow-lg hover:bg-purple-800 text-purple-900 hover:text-white duration-300 cursor-pointer active:scale-[0.98] focus:border-purple-950"
-                >
-                    <button className="px-5 py-2">Submit</button>
+                    </div>
                 </div>
             </div>
         );
